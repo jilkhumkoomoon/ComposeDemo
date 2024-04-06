@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'//发布aar文件，需要应用publishing插件
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+//本地发布aar文件,需要执行nav-plugin-runtime->publishing->publishToMavenLocal,
+// 文件路径：本地库路径：C:\Users\Hihacker\.m2\repository\com\moon\nav-plugin-runtime\1.0.0
+publishing{
+    publications{
+        mavenJava(MavenPublication){
+            from(components["java"])
+            groupId = "com.moon"
+            artifactId = "nav-plugin-runtime"
+            version = "1.0.0"
+        }
+    }
+//    repositories {  //远程仓库发布aar文件
+//        maven{
+//            url: 'https://xxx/xxx/xx/'
+//            credentials {
+//                username "614e9ad288a57fe41ed33148"
+//                password "KJ]p--iLuvXB"
+//            }
+//        }
+//    }
+}

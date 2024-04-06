@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+
+    implementation gradleApi()
+    implementation androidxLibs.bundles.nav.plugin
+    implementation 'com.moon:nav-plugin-runtime:1.0.0'  //添加自发布的aar文件依赖，本地库路径：C:\Users\Hihacker\.m2\repository\com\moon\nav-plugin-runtime\1.0.0
+}

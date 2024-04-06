@@ -1,6 +1,6 @@
 pluginManagement {
     repositories {
-        mavenLocal()
+        mavenLocal() //发布本地aar后，需要添加mavenLocal()才能引用本地发布的aar等文件
         maven{
             allowInsecureProtocol = true
             url 'http://dl.bintray.com/umsdk/release'
@@ -17,6 +17,7 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        mavenLocal() //发布本地aar后，需要添加mavenLocal()才能引用本地发布的aar等文件
         maven { url 'https://maven.aliyun.com/repository/releases' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/central' }
@@ -52,6 +53,13 @@ dependencyResolutionManagement {
             library('okhttp', 'com.squareup.okhttp3', 'okhttp').version('4.9.1')
             library('logging', 'com.squareup.okhttp3', 'logging-interceptor').version('4.9.1')
             bundle('http', ['retrofit', 'converter-gson', 'okhttp', 'logging'])
+
+            // nav-plugin
+            library('asm', 'org.ow2.asm', 'asm').version('9.2')
+            library('asm-tree', 'org.ow2.asm', 'asm-tree').version('9.2')
+            library('commons-io', 'commons-io', 'commons-io').version('2.6')
+            library('kotlinpoet', 'com.squareup', 'kotlinpoet').version('1.2.0')
+            bundle('nav-plugin',['asm','asm-tree','commons-io','kotlinpoet'])
 
             //fastjson
             library('fastjson','com.alibaba','fastjson').version('1.2.59')
@@ -103,3 +111,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ComposeDemo"
 include ':app'
+
+include ':nav-plugin'
+include ':nav-plugin-runtime'

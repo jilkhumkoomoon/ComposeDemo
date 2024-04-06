@@ -7,6 +7,6 @@ import androidx.fragment.app.Fragment
 open class BaseFragment : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("fragmentLife", "${TAG}-onCreate: ")
+        //Log.e("fragmentLife", "${TAG}-onCreate: ")
     }
 }
