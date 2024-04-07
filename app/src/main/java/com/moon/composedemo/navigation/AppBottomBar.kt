@@ -1,19 +1,26 @@
 package com.moon.composedemo.navigation
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarMenuView
 import com.moon.composedemo.AppConfig
 import com.moon.composedemo.R
+import kotlin.math.roundToInt
 
 /**
  * 注解的含义：https://www.jianshu.com/p/0d312fac3a65
  * */
+@SuppressLint("RestrictedApi")
 class AppBottomBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-): BottomNavigationView(context,attrs) {
+) : BottomNavigationView(context, attrs) {
     private val sIcons = intArrayOf(
         R.drawable.icon_tab_main,
         R.drawable.icon_tab_category,
@@ -21,9 +28,9 @@ class AppBottomBar @JvmOverloads constructor(
         R.drawable.icon_tab_tags,
         R.drawable.icon_tab_user
     )
-
     init {
         val config = AppConfig.getBottomBarConfig(context)
+
         val states = arrayOfNulls<IntArray>(2)
         states[0] = IntArray(1) { android.R.attr.state_selected }
         states[1] = intArrayOf()
@@ -31,7 +38,6 @@ class AppBottomBar @JvmOverloads constructor(
         val colors =
             intArrayOf(Color.parseColor(config.activeColor), Color.parseColor(config.inActiveColor))
         val colorStateList = ColorStateList(states, colors)
-
         itemTextColor = colorStateList
         itemIconTintList = colorStateList
         //LABEL_VISIBILITY_LABELED:设置按钮的文本为一直显示模式
@@ -46,5 +52,33 @@ class AppBottomBar @JvmOverloads constructor(
             val menuItem = menu.add(0, tab.route.hashCode(), index, tab.title)
             menuItem.setIcon(sIcons[index])
         }
+        tabs.forEachIndexed { index, tab ->
+            println("forEachIndexed:${index},${tab.size}")
+            val iconSize = dp2Px(tab.size)
+            val menuView = getChildAt(0) as NavigationBarMenuView//拿到 menuView
+            menuView.clipChildren = false
+            menuView.clipToPadding = false
+            val itemView = menuView.getChildAt(index) as BottomNavigationItemView
+            itemView.setIconSize(iconSize)
+            if (TextUtils.isEmpty(tab.title)) {
+                itemView.setIconTintList(ColorStateList.valueOf(Color.parseColor(config.activeColor)))
+                post(Runnable{  //post的原因是等所有的itemView都绘制完成
+                    itemView.scrollBy(0, dp2Px(20))
+                })
+            }
+        }
+
+        if (config.selectTab >= 0) {
+            val tab = tabs[config.selectTab]
+            val itemId = tab.route.hashCode()
+            post {
+                selectedItemId = itemId
+            }
+        }
+    }
+
+    private fun dp2Px(size: Int): Int {
+        val density = context.resources.displayMetrics.density
+        return (density * size + 0.5f).roundToInt()
     }
 }
