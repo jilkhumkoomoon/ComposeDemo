@@ -12,8 +12,7 @@ pluginManagement {
 }
 
 //打开versionCatalogs功能
-//enableFeaturePreview('VERSION_CATALOGS')
-
+enableFeaturePreview('VERSION_CATALOGS')
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -27,19 +26,18 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-
     versionCatalogs{
         create('androidxLibs') {
             //    implementation 'androidx.core:core-ktx:1.8.0'
             //    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
             //    implementation 'androidx.activity:activity-compose:1.5.1'
-
             //navigation
             library('navigation-fragment', 'androidx.navigation', 'navigation-fragment-ktx').version('2.5.3')
             library('navigation-ui', 'androidx.navigation', 'navigation-ui-ktx').version('2.5.3')
+
+
             library('appcompat', 'androidx.appcompat', 'appcompat').version('1.4.1')
             library('material', 'com.google.android.material', 'material').version('1.4.0')
-
             library('core-ktx','androidx.core', 'core-ktx').version('1.7.0')
             //library('lifecycle-runtime-ktx','androidx.lifecycle', 'lifecycle-runtime-ktx').version('2.3.1')
             //library('activity-compose','androidx.activity', 'activity-compose').version('1.6.1')

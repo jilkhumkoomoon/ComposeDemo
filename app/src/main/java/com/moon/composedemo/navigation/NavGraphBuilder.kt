@@ -11,7 +11,7 @@ import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.get
 import com.moon.plugin.runtime.NavDestination
-import com.moon.plugin.runtime.NavRegistry
+//import com.moon.plugin.runtime.NavRegistry
 
 
 object NavGraphBuilder {
@@ -24,45 +24,45 @@ object NavGraphBuilder {
         /**
          * 根据NavRegistry
          * */
-        val iterator = NavRegistry.get().listIterator()
-        while (iterator.hasNext()) {
-            val navData = iterator.next()
-            when (navData.type) {
-                NavDestination.NavType.Fragment -> {
-                    val navigator = provider.get<FragmentNavigator>("fragment")
-                    val destination = navigator.createDestination();
-                    destination.id = navData.route.hashCode()
-                    destination.setClassName(navData.className)
-                    navGraph.addDestination(destination)
-                }
-                NavDestination.NavType.Activity -> {
-                    val navigator = provider.get<ActivityNavigator>("activity")
-                    val destination = navigator.createDestination();
-                    destination.id = navData.route.hashCode()
-                    destination.setComponentName(
-                        ComponentName(
-                            context.packageName,
-                            navData.className
-                        )
-                    )
-                    navGraph.addDestination(destination)
-                }
-                NavDestination.NavType.Dialog -> {
-                    val navigator = provider.get<DialogFragmentNavigator>("dialog")
-                    val destination = navigator.createDestination();
-                    destination.id = navData.route.hashCode()
-                    destination.setClassName(navData.className)
-                    navGraph.addDestination(destination)
-                }
-                else -> {
-                    throw java.lang.IllegalStateException("cant create NavGraph,because unknown ${navData.type}")
-                }
-            }
-
-            if (navData.asStarter) {
-                navGraph.setStartDestination(navData.route.hashCode())
-            }
-        }
+//        val iterator = NavRegistry.get().listIterator()
+//        while (iterator.hasNext()) {
+//            val navData = iterator.next()
+//            when (navData.type) {
+//                NavDestination.NavType.Fragment -> {
+//                    val navigator = provider.get<FragmentNavigator>("fragment")
+//                    val destination = navigator.createDestination();
+//                    destination.id = navData.route.hashCode()
+//                    destination.setClassName(navData.className)
+//                    navGraph.addDestination(destination)
+//                }
+//                NavDestination.NavType.Activity -> {
+//                    val navigator = provider.get<ActivityNavigator>("activity")
+//                    val destination = navigator.createDestination();
+//                    destination.id = navData.route.hashCode()
+//                    destination.setComponentName(
+//                        ComponentName(
+//                            context.packageName,
+//                            navData.className
+//                        )
+//                    )
+//                    navGraph.addDestination(destination)
+//                }
+//                NavDestination.NavType.Dialog -> {
+//                    val navigator = provider.get<DialogFragmentNavigator>("dialog")
+//                    val destination = navigator.createDestination();
+//                    destination.id = navData.route.hashCode()
+//                    destination.setClassName(navData.className)
+//                    navGraph.addDestination(destination)
+//                }
+//                else -> {
+//                    throw java.lang.IllegalStateException("cant create NavGraph,because unknown ${navData.type}")
+//                }
+//            }
+//
+//            if (navData.asStarter) {
+//                navGraph.setStartDestination(navData.route.hashCode())
+//            }
+//        }
 
         controller.setGraph(navGraph, null)
     }
