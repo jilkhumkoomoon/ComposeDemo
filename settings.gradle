@@ -112,3 +112,4 @@ include ':app'
 
 include ':nav-plugin'
 include ':nav-plugin-runtime'
+include ':kotlinstudy'
